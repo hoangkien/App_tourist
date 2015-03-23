@@ -1,0 +1,37 @@
+<div class="top_in_center">
+  <div class="action_button">
+      <%= button_to 'Edit', edit_tourguide_path(@tourguide), class: 'btn_small_blue',style:'margin-left:10px', method: :get %>
+      <%= button_to  'Back', tourguides_path, class: 'btn_small_blue', method: :get %>
+  </div>
+</div>
+<p id="notice"><%= notice %></p>
+<table class="tblList" style="width:40%">
+  <tr>
+    <th> <strong>Name:</strong></th>
+    <td><%= @tourguide.name %></td>
+  </tr>
+  <tr>
+    <th><strong>Address:</strong></th>
+    <td><%= @tourguide.address %></td>
+  </tr>
+  <tr>
+    <th><strong>Phone:</strong></th>
+    <td><%= @tourguide.phone %></td>
+  </tr>
+  <tr>
+    <th><strong>Image:</strong></th>
+    <td><%= @tourguide.images == nil ? image_tag("no_image.png",size:"100x100") :  image_tag("images_tourguide/#{@tourguide.images}",size:"100x100")%></td>
+  </tr>
+  <tr>
+    <th><strong>Device:</strong></th>
+    <td><%= (@tourguide.device_id == nil or @tourguide.device_id == 0) ? "No Device" : Device.find(@tourguide.device_id).name %></td>
+  </tr>
+  <tr>
+    <th><strong>Active:</strong></th>
+    <td><%= (@tourguide.active  == 0 or @tourguide.active== nil) ? "False" : "True" %></td>
+  </tr>
+  <tr>
+    <th><strong>Company:</strong></th>
+    <td><%= @tourguide.company == nil ? "No Company" : @tourguide.company.name %></td>
+  </tr>
+</table>

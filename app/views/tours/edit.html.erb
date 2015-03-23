@@ -1,0 +1,36 @@
+<div class="action_button">
+  <%= button_to  'Back', tours_path, class: 'btn_small_blue', method: :get %>
+</div>
+<h1>Editing Tour</h1>
+
+<%= form_for(@tour) do |f| %>
+  <% if @tour.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tour.errors.count, "error") %> prohibited this tour from being saved:</h2>
+
+      <ul>
+      <% @tour.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table style="width:70%; margin-left:10%">
+  <tr height="30px">
+    <td width="20%"><%= f.label :name %></td>
+    <td><%= f.text_field :name %></td>
+  </tr>
+  <tr height="30px">
+    <td><%= f.label :number_of_member %></td>
+    <td><%= f.text_field :number_of_member %></td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top"><%= f.label :information %></td>
+    <td><%= f.text_area :information, cols: 40, rows: 10   %></td>
+  </tr>
+  <tr>
+  <td></td>
+    <td> <%= f.submit :'Update Tour', class:'btn_small_blue' %> <%= f.submit 'Reset', type: :reset, class: 'btn_small_blue' %></td>
+  </tr>
+</table>
+<% end %>

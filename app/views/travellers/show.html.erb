@@ -1,0 +1,37 @@
+<div class="top_in_center">
+  <div class="action_button">
+      <%= button_to 'Edit', edit_traveller_path(@traveller), class: 'btn_small_blue',style:'margin-left:10px', method: :get %>
+      <%= button_to  'Back', travellers_path, class: 'btn_small_blue', method: :get %>
+  </div>
+</div>
+<p id="notice"><%= notice %></p>
+<table style="width:40%" class="tblList">
+	<tr>
+		<th><strong>Name:</strong></th>
+		<td><%= @traveller.name %></td>
+	</tr>
+	<tr>
+		<th><strong>Gender:</strong></th>
+		<td><%= @traveller.gender == 1 ? "Female" : "Male"%></td>
+	</tr>
+	<tr>
+		<th><strong>Address:</strong></th>
+		<td><%= @traveller.address %></td>
+	</tr>
+	<tr>
+		<th><strong>Phone:</strong></th>
+		<td><%= @traveller.phone %></td>
+	</tr>
+	<tr>
+		<th><strong>Image:</strong></th>
+		<td><%= @traveller.images == nil ? image_tag("no_image.png",size:"100x100") : image_tag("images_travellers/#{@traveller.images}",size:"100x100")%></td>
+	</tr>
+	<tr>
+		<th><strong>Device:</strong></th>
+		<td><%= (@traveller.device_id ==nil or @traveller.device_id==0) ? "No Device" : Device.find(@traveller.device_id).name %></td>
+	</tr>
+	<tr>
+		<th><strong>Company:</strong></th>
+		<td><%= @traveller.company == nil ? "No company" : @traveller.company.name%></td>
+	</tr>
+</table>

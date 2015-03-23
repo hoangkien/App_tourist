@@ -1,0 +1,34 @@
+<div class="action_button">
+  <%= button_to  'Back', tourguides_path, class: 'btn_small_blue', method: :get %>
+</div>
+<h1>Editing Tourguide</h1>
+<%= form_for(@tourguide) do |f| %>
+<table style="width:70%; margin-left:10%">
+  <tr height="30px">
+    <td width="5%"><%= f.label :name %></td>
+    <td width="35%"><%= f.text_field :name %></td>
+    <td><%=  @tourguide.errors[:name][0] %></td>
+  </tr>
+  <tr height="30px">
+    <td><%= f.label :address %></td>
+    <td><%= f.text_field :address %></td>
+  </tr> 
+  <tr height="30px">
+    <td><%= f.label :gender %></td>
+    <td><%= f.select :gender,options_for_select([["Male","0"],["Fmale","1"]],@tourguide.gender)%></td>
+  </tr>
+  <tr height="30px">
+    <td><%= f.label :phone %></td>
+    <td><%= f.text_field :phone %></td>
+    <td><%= @tourguide.errors[:phone][0]%></td>
+  </tr>
+  <tr height="30px">
+    <td><%= f.label :Email, "Email" %></td>
+    <td><%= f.text_field :email %></td>
+    <td><%= @tourguide.errors[:email][0]%></td>
+  </tr>
+  <tr height="30px">
+    <td colspan="2"> <%= f.submit :'Update tourguide', class:'btn_medium_blue' %> <%= f.submit 'Reset', type: :reset, class: 'btn_small_blue',style:'margin-left:30px' %></td>
+  </tr>
+</table>
+<% end %>

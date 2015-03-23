@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TourismApp</title>
+  <%= stylesheet_link_tag    'application'  %>
+  <%= javascript_include_tag 'application' %>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+  <!-- <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css"> -->
+</head>
+<body>
+
+
+<div id="wrapper">
+  <!-- header start-->
+    <%= render 'layouts/header'%>
+  <!-- header end-->
+
+  <div class="breadscrumb">
+    <span><%= controller.controller_name.capitalize%></span>
+    <%= image_tag 'templates/brk_center.png'%>
+    <span><a href="#"><%= controller.action_name.capitalize %></a></span>
+    <%= image_tag 'templates/brk_center.png'%>
+
+    </div>
+  <!--center start-->
+  <div id="center">
+    <!--left start-->
+
+    <!--left end-->
+
+    <!--right start-->
+    <%= yield %>
+    <!--right end-->
+    <div class="cl"></div>
+  </div>
+  <!--center end-->
+
+  <!--footer start-->
+  <%= render 'layouts/footer'%>
+  <!--footer end-->
+</div>
+
+
+
+</body>
+</html>

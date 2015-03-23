@@ -1,0 +1,74 @@
+
+<div class="top_in_center">
+<!--   <div class="search_form">
+    <%= form_tag devices_path, :method => 'get' do %>
+        <p>
+          <%= text_field_tag :search, params[:search], :placeholder => "type search key" %>
+          <%= submit_tag "Search",class:'btn_small_blue', :name => nil %>
+              </p>
+          <% end %>
+   </div> -->
+</div>
+<div class="cl"></div>
+<% if notice %>
+    <p class="msgBlue"><%= notice %></p>
+<% end    %>
+
+<table width="100%" class="tblList" id="list">
+<thead>
+  <tr>
+    <th width="2%">ID</th>
+    <th width="18%">Device Name </th>
+    <th width="15%">Company</th>
+    <th width="10%">Status</th>
+    <th width="15%">Lat</th>
+    <th width="15%">Lng</th>
+    <th width="10%">Create at</th>
+<!--     <th width="10%">Updated at</th> -->
+    <th width="10%">Action</th>
+  </tr>
+</thead>
+<thead>
+  <%= form_tag devices_path, :method =>'get' do %>
+    <tr cellpadding="0">
+      <td  width="2%"></td>
+      <td width="18%"><%= text_field_tag'fillter[name]', params[:fillter] == nil ? nil: params[:fillter][:name],style:'width:100%'%></td>
+       <td width="15%"><%= select_tag "fillter[company]", options_from_collection_for_select(@company, "id", "name",params[:fillter] == nil ? nil : params[:fillter][:company]), include_blank:"All",style:'width:100%'%></td>
+       <td width="10%"><%= select_tag'fillter[status]',options_for_select([ "All", "True","False" ],params[:fillter] ==  nil ? "group": params[:fillter][:status]),style:'width:100%'%></td>
+      <td width="15%"><%= text_field_tag'fillter[lat]',params[:fillter] == nil ? nil : params[:fillter][:lat],style:'width:100%'%></td>
+      <td width="15%"><%= text_field_tag'fillter[lng]',params[:fillter] == nil ? nil : params[:fillter][:lng],style:'width:100%'%></td>
+      <td width="10%"><%= select_tag'fillter[created_at]', options_for_select(@created_at,params[:fillter] == nil ? nil : params[:fillter][:created_at]),style:'width:100%'%></td>
+      <td width="10%">
+        <%= image_submit_tag('search_button_green.ico',width:"25px",height:"25px",style:"margin-bottom:-10px")%>
+        <%= link_to image_tag('undo.ico',size:'20x20')%>
+      </td>
+    </tr>
+  <% end -%>
+  </thead>
+<tbody>
+  <% if @devices.count == 0 %>
+    <tr>
+      <td colspan="8" style="text-align:center"> No Data</td>
+    </tr>
+  <% else %>
+    <% @devices.each do |device| %>
+        <tr>
+          <td><%= @stt %></td>
+          <td><%= truncate(device.name,length: 25) %></td>
+          <td><%=  device.company_id == 0 ? "Null" : Company.find(device.company_id).name%></td>
+          <td><%= device.status %></td>
+          <td><%= device.lat == nil ? "Null"  : device.lat %></td>
+          <td><%= device.lng == nil ? "Null" : device.lng%></td>
+          <td><%= device.created_at.strftime("%d/%m/%Y") if not device.created_at == nil %></td>
+          <!-- <td><%= device.updated_at.strftime("%d/%m/%Y") if not device.updated_at == nil %></td> -->  
+          <td align="center"><%= link_to image_tag('templates/view_icon.ico',size:"16x16",title:'View') ,device,method: :get %></td>
+        </tr>
+        <% @stt +=1%>
+    <% end %>
+  <%end %>
+</tbody>
+<tfoot></tfoot>
+</table>
+<!--table end-->
+<br>
+<div class="paginate"> <%= paginate @devices %> </div>

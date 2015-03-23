@@ -1,0 +1,26 @@
+<div class="top_in_center">
+        <div class="action_button">
+            <%= button_to 'Edit', edit_tour_path(@tour), class: 'btn_small_blue',style:'margin-left:10px', method: :get %>
+            <%= button_to  'Back', tours_path, class: 'btn_small_blue', method: :get %>
+        </div>
+</div>
+<p id="notice"><%= notice %></p>
+
+<table class="tblList" style="width:40%">
+	<tr>
+		<th><strong>Name:</strong></th>
+		<td> <%= @tour.name %></td>
+	</tr>
+	<tr>
+		<th><strong>Number of member:</strong></th>
+		<td> <%= @tour.number_of_member %></td>
+	</tr>
+	<tr>
+		<th><strong>Information:</strong></th>
+		<td><%= @tour.information %></td>
+	</tr>
+	<tr>
+		<th><strong>Company:</strong></th>
+		<td><%= @tour.company.name%></td>
+	</tr>
+</table>

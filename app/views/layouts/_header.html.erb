@@ -1,0 +1,42 @@
+<div class="header">
+  <div class="fl"><a href="#"><%= image_tag ('templates/logo.png')%></a></div>
+  <div class="fr" style="padding-top:45px;"><span></span>
+    <% if session[:account] && session[:group]=='admin'%>
+    <%=  image_tag 'templates/icon_person.png'%> Hello,&nbsp;<%= session[:account]%>
+        &nbsp; [<%= link_to 'Profile',User.find_by_account(session[:account]),  method: :get %>]
+        &nbsp;[<%= link_to 'Change password', edit_password_user_path(User.find_by_account(session[:account])), method: :get %>]
+        &nbsp;[<%= link_to 'Sign_out', sign_out_path, method: :delete, data: { confirm: 'Are you sure?' } %>]
+    <% elsif session[:account] && session[:group]=='company'%>
+      <%=  image_tag 'templates/icon_person.png'%> Hello,&nbsp;<%= session[:account]%>
+        &nbsp;[<%= link_to'Company Profile',edit_company_path(session[:company_id]),method: :get %>]
+        &nbsp; [<%= link_to 'Profile',User.find_by_account(session[:account]),  method: :get %>]
+        &nbsp;[<%= link_to 'Change password', edit_password_user_path(User.find_by_account(session[:account])), method: :get %>]
+        &nbsp;[<%= link_to 'Sign_out', sign_out_path, method: :delete, data: { confirm: 'Are you sure?' } %>]  
+    <% else %>
+    [<%= link_to 'Sign_in', sign_in_path %>]
+     <% end %>
+  </div>
+  <div class="cl"></div>
+  <!-- menu start -->
+  <div id="menu_nav" >
+    <ul>
+      <% if session[:group] =='admin'%>
+<!--           <li class="starts"><a style="border-left:none" href="#">Home</a></li> -->
+          <li class="users"> <%= link_to "User", users_path, method: :get%></li>
+          <li class="companies"> <%= link_to "Company", companies_path, method: :get%></li>
+          <li class="devices"> <%= link_to "Device", devices_path, method: :get%></li>
+          <li class="tours"> <%= link_to "Tour", tours_path, method: :get%></li>
+          <li class="travellers"> <%= link_to "Traveller", travellers_path, method: :get%></li>
+          <li class="tourguides"> <%= link_to "Tourguide", tourguides_path, method: :get, style: 'border-right:none' %></li>
+          <li class="feedbacks"><%= link_to "Feedback",feedbacks_path%></li>
+      <%else%>
+          <li class="devices"> <%= link_to "Device", devices_path, method: :get%></li>
+          <li class="tours"> <%= link_to "Tour", tours_path, method: :get%></li>
+          <li class="travellers"> <%= link_to "Traveller", travellers_path, method: :get%></li>
+          <li class="tourguides"> <%= link_to "Tourguide", tourguides_path, method: :get, style: 'border-right:none' %></li>
+          <li class="feedbacks"><%= link_to "Feedback",feedbacks_path%></li>
+      <%end%>
+    </ul>
+  </div>
+  <!-- menu end-->
+</div>

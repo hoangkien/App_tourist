@@ -1,0 +1,30 @@
+<h1>Editing Company</h1>
+
+<%= form_for(@company) do |f| %>
+
+    <table width="80%" class="new_form">
+      <tr>
+        <th><%= f.label :name , 'Company name' %></th>
+        <td><%= f.text_field :name %></td>
+        <td width='40%'> <%= @company.errors[:name][0] %></td>
+      </tr>
+      <tr>
+        <th> <%= f.label :address, :Address	%></th>
+        <td> <%= f.text_field :address %></td>
+        <td width='40%'> <%= @company.errors[:address][0] %></td>
+      </tr>
+      <tr>
+        <th> <%= f.label :group, 'Company code' %></th>
+        <td> <%= f.text_field :code , disabled: true%></td>
+        <td width='40%'> <%= @company.errors[:code][0] %></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td> <%= f.submit 'Update', class: 'btn_small_blue'%> <%= f.submit 'Reset', type: :reset, class: 'btn_small_blue' %></td>
+                  </tr>
+                  </table>
+              <% end %>
+
+
+<%= link_to 'Show', @company %> |
+<%= link_to 'Back', companies_path %>

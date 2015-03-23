@@ -1,0 +1,23 @@
+
+<div style="border: 1px solid #929191; display: inline-block; padding:10px;border-radius: 4px;">
+  <% if alert %>
+      <span> <%=  alert %></span>
+      <% end %>
+    <%= form_tag session_create_path do %>
+    <table width="40%" class="signin_form">
+      <tr>
+        <th width="30%">  <%= label_tag :account %></th>
+        <td width="70%"> <%= text_field_tag :account, params[:account] %></td>
+      </tr>
+      <tr>
+        <th><%= label_tag :password %></th>
+        <td><%= password_field_tag :password, params[:password] %></td>
+      </tr>
+
+      <tr>
+        <th></th>
+        <td><%= submit_tag 'Sign In'%></td>
+      </tr>
+    </table>
+    <% end %>
+</div>

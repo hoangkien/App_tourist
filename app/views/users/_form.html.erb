@@ -1,0 +1,70 @@
+
+<%= form_for(@user) do |f| %>
+
+    <table width="60%" class="new_form">
+      <tr>
+        <th width="20%">   <%= f.label :account, 'Account' %></th>
+        <td width="30%"> <%= f.text_field :account, readonly: true %></td>
+        <td width='40%'> <%= @user.errors[:account][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :name , 'User name' %></th>
+        <td><%= f.text_field :name %></td>
+        <td width='40%'> <%= @user.errors[:name][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :gender, "Gender" %></th>
+        <td><%= f.select :gender,options_for_select([["Male","0"],["Fmale","1"]],@user.gender)%></td>
+      </tr>
+      <tr>
+        <th> <%= f.label :address, :Address	%></th>
+        <td> <%= f.text_field :address %></td>
+        <td width='40%'> <%= @user.errors[:address][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :email, "Email" %></th>
+        <td><%= f.email_field :email %></td>
+        <td width='40%'> <%= @user.errors[:email][0] %></td>
+      </tr>
+      <tr>
+        <th> <%= f.label :group, 'Group' %></th>
+        <% if session[:group] == "admin"%>
+          <td>
+            <%= f.select :group, options_for_select([["admin", "admin"], ["company", "company"]],  @user.group)%>
+          </td>
+        <%else%>
+          <td>
+            <%= f.text_field :group, value:@user.group,disabled:true%>
+          </td>
+        <%end%>
+      </tr>
+      <tbody class="company">
+      <tr>
+        <th><%= f.label :company, "Company Name" %></th>
+        <td>
+          <%= if @user.group == "company" && @user.company_id
+                  text_field_tag'company[name]', @user.company.name
+              else
+                  text_field_tag'company[name]'
+              end %>
+        </td>
+        <td width='40%'> <%= @user.errors[:group][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :company_address, "Company Address" %></th>
+        <td>
+          <%= if @user.group == "company" && @user.company_id
+                  text_field_tag'company[address]', @user.company.address
+              else
+                  text_field_tag'company[address]'
+              end %>
+        </td>
+      </tr>
+      </tbody>
+      <tr>
+        <th></th>
+        <td> <%= f.submit 'Update', class: 'btn_small_blue'%> <%= f.submit 'Reset', type: :reset, class: 'btn_small_blue' %></td>
+      </tr>
+    </table>
+<% end %>
+

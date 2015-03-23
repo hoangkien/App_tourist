@@ -1,0 +1,29 @@
+<div class="top_in_center">
+  <div class="action_button">
+      <%= button_to  'Back',  feedbacks_path, class: 'btn_small_blue', method: :get %>
+  </div>
+</div>
+<p id="notice"><%= notice %></p>
+<table style="width:40%" class="tblList">
+	<tr>
+		<th><strong>Name:</strong></th>
+		<td><%= @feedback.name %></td>
+	</tr>
+	<tr>
+		<th><strong>Phone:</strong></th>
+		<td><%= @feedback.phone %></td>
+	</tr>
+	<tr>
+		<th><strong>Tour Name:</strong></th>
+		<td><%= @feedback.tour_name %></td>
+	</tr>
+	<tr>
+		<th><strong>Quantity Service:</strong></th>
+		<td><%= @feedback.quantiy_service %></td>
+	</tr>
+	<tr>
+		<th><strong>Comment</strong></th>
+		<td><%= @feedback.comment%></td>
+	</tr>
+</table>
+

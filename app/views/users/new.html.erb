@@ -1,0 +1,59 @@
+<div> Create a new Account </div>
+<%= form_for(@user) do |f| %>
+
+<table width="70%" class="new_form">
+      <tr>
+        <th width="30%">   <%= f.label :account, 'Account' %></th>
+        <td width="35%"> <%= f.text_field :account %></td>
+	     <td width='40%'> <%= @user.errors[:account][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :password %></th>
+        <td><%= f.password_field :password %></td>
+	     <td width='40%'> <%= @user.errors[:password][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :password_confirmation,  'Confirmation' %></th>
+        <td><%= f.password_field :password_confirmation %></td>
+	      <td width='40%'> <%= @user.errors[:password_confirmation][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :name , 'User name' %></th>
+        <td><%= f.text_field :name %></td>
+	      <td width='40%'> <%= @user.errors[:name][0] %></td>
+      </tr>
+      <tr>
+        <th> <%= f.label :address, :Address	%></th>
+        <td> <%= f.text_field :address %></td>
+	      <td width='40%'> <%= @user.errors[:address][0] %></td>
+      </tr>
+      <tr>
+        <th> <%= f.label :group, 'Group' %></th>
+        <td>
+          <%= f.select(:group,options_for_select([["Admin", "admin"], ["Company", "company"]], @user_params ? @user_params[:group] : "admin")) %>
+        </td>
+	   <td width='40%'> <%= @user.errors[:group][0] %></td>
+    </tr>
+    <tbody class="company">
+    <tr>
+      <th><%= f.label :company, "Company Name" %></th>
+      <td><%= text_field_tag'company[name]',  @params_company ? @params_company [:name] : "" %></td>
+      <td width='40%' id ="error_comp"><%= @company_errors if @company_errors %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :company_address, "Company Address" %></th>
+      <td><%= text_field_tag'company[address]',@params_company ? @params_company [:address] : ""%></td>
+       <td width='40%' id ="error_comp"><%= @company_errors_address if @company_errors_address %></td>
+    </tr>
+    <tr>
+      <th style="vertical-align:top"><%= f.label :company_info, "Company Info" %></th>
+      <td><%= text_area_tag 'company[information]',nil, rows:5%></td>
+    </tr>
+    </tbody>
+    <tr>
+        <th></th>
+        <td> <%= f.submit 'Sign Up', class: 'btn_small_blue',id:'Sign_Up' %> <%= f.submit 'Reset', type: :reset, class: 'btn_small_blue' %></td>
+      </tr>
+    </table>
+<% end %>
+<%= link_to 'Back', users_path %>

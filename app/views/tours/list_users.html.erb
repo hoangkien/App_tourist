@@ -1,0 +1,174 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".tourguide #add_device").click(function(){
+			var tourguide = $("#tourguide").val();
+			var device = $("#device").val();
+			if(tourguide == ""){
+				alert("Not select Tourguide");
+				return false;
+			}
+			if( device ==""){
+				alert("Not select device");
+				return false;
+			}
+			
+
+		});
+		$(".traveller #add_traveller").click(function(){
+			var traveller = $("#traveller").val();
+			if (traveller == ""){
+				alert("Not select traveller");
+				return false;
+			}
+		});
+	});
+	function disconnect(group,id, device_id, tour_id){
+		$.ajax({
+                url : "/tours/disconnect_device",
+                type : "get",
+                dateType:"text",
+                data : {
+                	 group:group,
+                     user_id :id,
+                     device_id :device_id,
+                     tour_id :tour_id
+                },
+                success : function (result){
+                        location.reload(location.href + "#center");
+                    }
+            });
+	}
+	function change_device(group,id, tour_id){
+		$('.change_device').each(function(){
+			 $(this).click(function(){
+			 	 var device_id = $(this).val();
+			 	 	if (device_id == ""){
+						return false;
+					}else{
+						$.ajax({
+			                url : "/tours/change_device",
+			                type : "get",
+			                dateType:"text",
+			                data : {
+			                	 group:group,
+			                     user_id :id,
+			                     device_id :device_id,
+			                     tour_id :tour_id
+			                },
+			                success : function (result){
+			                      location.reload(location.href + "#center");
+			                    }
+			            });
+					}
+			 })
+		})
+	}
+
+</script>
+<style type="text/css">
+	img:hover{
+		cursor: pointer;
+	}
+</style>
+<div class="tour_list_user">
+	<div class="traveller">
+	<div style="overflow:hidden">
+		<span>List travellers</span>
+		<div class="action_button" style="margin-bottom:35px">
+			<%= button_to 'Add new traveller', new_tour_traveller_path(params[:id]), method: 'get', class:'btn_medium_blue' %>
+			<%= form_tag(add_traveller_path(params[:id])) do -%>
+				<%= select_tag"traveller",options_from_collection_for_select(@travellers,"id","name"),include_blank:"Choose Traveller"%>
+				<%= button_tag"Add Traveller", id:'add_traveller', class:'btn_medium_blue' %>
+			<% end -%>
+		</div>
+	</div>
+	<% if notice %>
+		<p class="msgBlue"><%= notice %></p>
+	<% end    %>
+	<table class="tblList" width="100%" id="list">
+	<thead>
+		<tr>
+			 <th width="3%">ID</th>
+			<th width="40%">Name</th>
+			<th width="20%">Phone</th>
+			<th>Device</th>
+			<th width="15%">Action</th>	
+		</tr>
+	</thead>
+	<tbody>
+		<% if @traveller_list.count == 0 %>
+			<tr><td colspan="5" style="text-align:center"> No Data</td></tr>
+		<% else %>
+			<% @traveller_list.each do |traveller|%>
+			<tr>
+
+				<td><%= @stt%></td>
+				<td><%= traveller.name %></td>
+				<td><%= traveller.phone %></td>
+				<td>
+					<% if traveller.device_id && traveller.device_id != 0 %>
+						<%= traveller.device_id%> 
+						<%= image_tag("templates/Delete.png", size: "16x10", title: "Disconnect Device",:onclick =>" disconnect(0,#{traveller.id},#{traveller.device_id},#{params[:id]})")%>
+					<% else %>
+						<%= select_tag"change_device",options_from_collection_for_select(@devices,"id","code"),include_blank:"Choose Device",class: 'change_device',:onchange => "change_device(0,#{traveller.id},#{params[:id]})"%>
+					<% end %>
+					</td>
+				<td><%= link_to"Delete",remove_traveller_path(params[:id],traveller.id)%></td>
+			</tr>
+			<% @stt +=1%>
+			<% end %>
+		<% end %>
+	</tbody>
+	<tfoot></tfoot>
+		</table> 
+</div>
+<div class="tourguide" style="margin-top:10px">
+	<span>List tourguides</span>
+	<div style="text-align:right">
+		<%= form_tag(add_tourguide_path(params[:id])) do -%>
+			<%= select_tag"tourguide",options_from_collection_for_select(@tourguides,"id","name"), include_blank:"Choose Tour Guide"%>
+			<%= select_tag"device",options_from_collection_for_select(@devices,"id","code"),include_blank:"Choose Device"%>
+			<%= button_tag"Add TourGuide",id:'add_device', class:'btn_medium_blue' %>
+		<%end%>
+	</div>
+	<% if alert %>
+		<p class="msgBlue"><%= alert %></p>
+	<% end    %>
+	<table class="tblList" width="100%" id="list1">
+	<thead>
+		<tr>
+			<th width="3%">ID</th>
+			<th width="40%">Name</th>
+			<th width="20%">Phone</th>
+			<th>Device</th>
+			<th width="15%">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% if @tourguide_list.count == 0 %>
+			<tr><td colspan="5" style="text-align:center">No Data</td></tr>
+		<% else %>
+			<% @id = 1 %>
+			<%@tourguide_list.each do |tourguide|%>
+				<tr>
+					<td><%= @id %></td>	
+					<td><%= tourguide.name %></td>
+					<td><%= tourguide.phone %></td>
+					<td>
+					<% if tourguide.device_id && tourguide.device_id != 0 %>
+						<%= tourguide.device_id%> 
+						<%= image_tag("templates/Delete.png", size: "16x10", title: "Disconnect Device",:onclick =>" disconnect(1,#{tourguide.id},#{tourguide.device_id},#{params[:id]})")%>
+					<% else %>
+						<%= select_tag"change_device",options_from_collection_for_select(@devices,"id","code"),include_blank:"Choose Device", class:'change_device',:onchange => "change_device(1,#{tourguide.id},#{params[:id]})"%>
+					<% end %>
+					</td>
+					<td><%= link_to"Delete", remove_tourguide_path(params[:id],tourguide.id)%></td>
+				</tr>
+				<% @id +=1 %>
+			<% end %>
+		<% end %>
+	</tbody>
+	<tfoot></tfoot>
+	</table>
+</div>
+</div>

@@ -1,0 +1,18 @@
+<thead>
+  <%= form_tag users_path, :method =>'get' do %>
+    <tr cellpadding="0">
+      <td  width="3%"></td>
+      <td width="10%"><%= text_field_tag'fillter[name]', params[:fillter] == nil ? nil: params[:fillter][:account],style:'width:100%'%></td>
+      <td width="10%"><%= select_tag'fillter[gender]',options_for_select([ "All", "Male","Female" ],params[:fillter] ==  nil ? "All": params[:fillter][:status]),style:'width:100%'%></td>
+      <td width="20%"><%= text_field_tag'fillter[address]',params[:fillter] == nil ? nil : params[:fillter][:address],style:'width:100%'%></td>
+      <td width="20%"><%= text_field_tag'fillter[phone]',params[:fillter] == nil ? nil : params[:fillter][:phone],style:'width:100%'%></td>
+      <td width="20%"><%= text_field_tag'fillter[device_name]',params[:fillter] == nil ? nil : params[:fillter][:device_name],style:'width:100%'%></td>
+       <td width="15%"><%= select_tag "fillter[company]", options_from_collection_for_select(@company, "id", "name",params[:fillter] == nil ? nil : params[:fillter][:company]), include_blank:"All",style:'width:100%'%></td>
+       <td width="10%"><%= select_tag'fillter[status]',options_for_select([ "All", "True","False" ],params[:fillter] ==  nil ? "group": params[:fillter][:status]),style:'width:100%'%></td>
+      <td width="10%">
+        <%= image_submit_tag('search_button_green.ico',width:"25px",height:"25px",style:"margin-bottom:-10px")%>
+        <%= link_to image_tag('undo.ico',size:'20x20')%>
+      </td>
+    </tr>
+  <% end -%>
+  </thead>

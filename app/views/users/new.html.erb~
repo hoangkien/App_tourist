@@ -1,0 +1,42 @@
+
+<div> Create a new Account <div>
+
+<table width="60%" class="new_form">
+      <tr>
+        <th width="15%">   <%= f.label :account, 'Account' %></th>
+        <td width="20%"> <%= f.text_field :account %></td>
+	<td width='40%'> <%= @user.errors[:account][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :password %></th>
+        <td><%= f.password_field :password %></td>
+	<td width='40%'> <%= @user.errors[:password][0] %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :password_confirmation,  'Confirmation' %></th>
+        <td><%= f.password_field :password_confirmation %></td>
+	<td width='40%'> <%= @user.errors[:password_confirmation][0] %></td>
+      </tr>
+<tr>
+        <th><%= f.label :name , 'User name' %></th>
+        <td><%= f.text_field :name %></td>
+	<td width='40%'> <%= @user.errors[:name][0] %></td>
+      </tr>
+<tr>
+        <th> <%= f.label :address, :Address	%></th>
+        <td> <%= f.text_field :address %></td>
+	<td width='40%'> <%= @user.errors[:address][0] %></td>
+      </tr>
+<tr>
+        <th> <%= f.label :group, 'Group' %></th>
+        <td> <%= f.text_field :group %></td>
+	<td width='40%'> <%= @user.errors[:group][0] %></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td> <%= f.submit 'Sign Up' %>
+ <%= f.submit 'Reset', type: :reset %></td>
+      </tr>
+    </table>
+<% end %>
+<%= link_to 'Back', users_path %>

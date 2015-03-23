@@ -1,0 +1,39 @@
+  <div class="action_button">
+      <%= button_to  'Back', travellers_path, class: 'btn_small_blue', method: :get %>
+  </div>
+<h1>Editing Traveller</h1>
+
+<%= form_for(@traveller) do |f| %>
+<table  style="width:70%; margin-left:10%">
+  <tr height="30px">
+    <td  width="5%"><%= f.label :name %></td>
+    <td width="35%"><%= f.text_field :name %></td>
+    <td><%= @traveller.errors[:name][0]%></td>
+  </tr>
+  <tr height="30px">
+    <td><%= f.label :gender, "Gender" %></td>
+    <td><%= f.select :gender,options_for_select([["Male","0"],["Fmale","1"]],@traveller.gender)%></td>
+  </tr>
+  <tr height="30px">
+    <td><%= f.label :address %></td>
+    <td><%= f.text_field :address %></td>
+  </tr>
+  <tr height="30px">
+    <td><%= f.label :phone %></td>
+    <td> <%= f.text_field :phone %></td>
+    <td><%= @traveller.errors[:phone][0]%></td>
+  </tr>
+  <tr height="30px" >
+    <td><%= f.label :Email, "Email" %></td>
+    <td><%= f.text_field :email %></td>
+    <td><%= @traveller.errors[:email][0]%></td>
+  </tr>
+  <tr height="30px">
+    <td><%= f.label :device_id %><br></td>
+    <td><%= select_tag"traveller[device_id]", options_from_collection_for_select(@devices, "id", "code"),include_blank:"Choose Device"%></td>
+  </tr>
+  <tr height="30px">
+    <td colspan="2"> <%= f.submit :'Update traveller', class:'btn_medium_blue' %> <%= f.submit 'Reset', type: :reset, class: 'btn_small_blue',style:'margin-left:30px' %></td>
+  </tr>
+</table>
+<% end %>

@@ -1,0 +1,36 @@
+
+<div class="top_in_center">
+  <div class="search_form">
+    <%= form_tag feedbacks_path,:id => "feedbacks_search", :method => 'get' do %>
+        <p>
+          <%= text_field_tag("search", params[:search], :placeholder => "type search key",id:"search")%>
+          <%= submit_tag "Search",class:'btn_small_blue', :name => nil %>
+        </p>
+    <% end %>
+  </div>
+</div>
+  <div id="load">
+      <div class="cl"></div>
+     <% if notice %>
+      <p class="msgBlue"><%= notice %></p>
+      <% end    %>
+        <table width="100%" class="tblList" id="list">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th width="10%">Traveller </th>
+              <th width="10%">Phone</th>
+              <th>Tour</th>
+              <th>Company</th>
+              <th width="15%">Quantity Service</th>
+              <th width="20%">Comment</th>
+              <th width="10%">Action</th>
+            </tr>
+          </thead>
+           <tbody id="feedbacks"><%= render'feedbacks'%></tbody>
+          <tfoot></tfoot>
+          </table>
+  </div>
+    <!--table end-->
+    <br><div class="paginate"> <%= paginate @feedbacks %> </div>
+
